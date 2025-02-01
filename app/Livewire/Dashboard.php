@@ -3,8 +3,8 @@
 namespace App\Livewire;
 
 use App\Models\SalesCommission;
+use App\Actions\SendMessageToAIAction;
 use Livewire\Component;
-use OpenAI\Laravel\Facades\OpenAI;
 
 class Dashboard extends Component
 {
@@ -23,22 +23,26 @@ class Dashboard extends Component
     ];
 
     public function generateReport() {
-
         $this->validate();
-
-        $fields = implode(',',SalesCommission::getColumns());
-
-        $this->config =  OpenAI::completions()->create([
-            'model' => 'gpt-3.5-turbo-instruct',
-            'prompt' => "Considerando a lista de campos ($fields), gere uma configuração json do Vega-lite v5 (sem campo de dados e com descrição) que atenda o seguinte pedido {$this->question}. Resposta:",
-            'max_tokens' => 1500
-        ])->choices[0]->text;
-
-        $this->config = str_replace("\n", "", $this->config);
-        $this->config = json_decode($this->config, true);
-
-        $this->dataset = ["values" => SalesCommission::inRandomOrder()->limit(100)->get()->toArray()];
-
+        $dashboardDetails = $this->buildPrompt();
+        $response = SendMessageToAIAction::execute($dashboardDetails);
+        $this->buildConfig($response);
+        $this->prepareDataSet();
         return $this->config;
+    }
+
+    private function buildPrompt(){
+        $fields = implode(',',SalesCommission::getColumns());
+        return "Considerando a lista de campos ($fields), gere uma configuração json do Vega-lite v5 (sem campo de dados e com descrição) que atenda o seguinte pedido {$this->question}. Resposta:";
+    }
+
+    private function buildConfig($response){
+        $response = str_replace("\n", "", $response);
+        $response = preg_replace('/^```json|```$/', '', $response);
+        $this->config = json_decode($response, true);
+    }
+
+    private function prepareDataSet(){
+        $this->dataset = ["values" => SalesCommission::inRandomOrder()->limit(100)->get()->toArray()];
     }
 }
