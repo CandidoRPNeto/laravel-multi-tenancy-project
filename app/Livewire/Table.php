@@ -13,11 +13,16 @@ class Table extends Component
     public array $columns;
     public string $edit;
     public string $delete;
+    public array $eagerLoading;
 
     public function render()
     {
+        $resource = app("App\Models\\" . $this->resource);
+        if( $this->eagerLoading){
+            $resource = $resource->with($this->eagerLoading);
+        }
         return view('livewire.table', [
-            'items' => app("App\Models\\" . $this->resource)->paginate(10)
+            'items' => $resource->paginate(10)
         ]);
     }
 }

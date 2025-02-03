@@ -9,16 +9,17 @@
                     btn-label="Add Client"
                     :route="route('clients.create')" />
 
-                <div class="w-full overflow-hidden md:rounded-lg">
+                <div class="overflow-hidden w-full md:rounded-lg">
                     <livewire:table
                         resource="Client"
                         :columns="[
-                        ['label' => 'Client', 'column' => 'user.name'],
-                        ['label' => 'Email','column' => 'user.email'],
-                        ['label' => 'City', 'column' => 'address.city'],
-                        ['label' => 'State', 'column' => 'address.state'],
-                    ]
-                    "
+                            ['label' => 'Client', 'column' => 'user.name'],
+                            ['label' => 'Email','column' => 'user.email'],
+                            ['label' => 'City', 'column' => 'address.city'],
+                            ['label' => 'State', 'column' => 'address.state'],
+                        ]
+                        "
+                        :eager-loading="['user', 'address']"
                         edit="clients.edit"
                         delete="clients.destroy"
                     ></livewire:table>
