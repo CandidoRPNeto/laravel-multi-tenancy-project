@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\BelongsToCompany;
 class SalesCommission extends Model
 {
+    use BelongsToCompany;
     protected $table = "sales_commission_view";
     public $incrementing = false;
     public $timestamps = false;
