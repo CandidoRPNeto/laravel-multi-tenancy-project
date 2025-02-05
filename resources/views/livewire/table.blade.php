@@ -7,6 +7,12 @@
                         <th scope="col" @class(["px-3 py-3.5 text-left text-sm font-semibold text-gray-900  dark:text-white"]) >{{ $column['label'] }}</th>
                     @endforeach
 
+                    @if (!@session()->has('company_id'))
+                        <th scope="col" class="relative py-3.5 pr-4 pl-3 sm:pr-6">
+                            <span class="sr-only">Impersonate</span>
+                        </th>
+                    @endif
+
                     @if($edit)
                         <th scope="col" class="relative py-3.5 pr-4 pl-3 sm:pr-6">
                             <span class="sr-only">Edit</span>
@@ -26,6 +32,12 @@
                     @foreach($columns as $column)
                         <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap dark:text-white">{{ data_get($item, $column['column']) }}</td>
                     @endforeach
+
+                    @if (!@session()->has('company_id'))
+                        <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap dark:text-white">
+                            <a href="{{ route('impersonate.login', $item->user->id) }}" class="text-indigo-600 hover:text-indigo-900 dark:text-white dark:hover:text-gray-400">{{ __('Impersonate') }}</a>
+                        </td>
+                    @endif
 
                     @if($edit)
                         <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap dark:text-white">

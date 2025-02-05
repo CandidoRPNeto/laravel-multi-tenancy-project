@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Enums\RoleEnum;
+use App\Models\AIModel;
 use App\Models\Seller;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -18,13 +19,18 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
+        $user = User::create([
             'name' => 'Admin',
             'email' => 'adm@mail.com',
             'password' => bcrypt('password'),
             'role_id' => RoleEnum::ADMIN,
             'email_verified_at' => now(),
             'remember_token' => Str::random(10),
+        ]);
+        AIModel::create([
+            'user_id' => $user->id,
+            'provider' => 1,
+            'token' => 'AIzaSyDoAKQZTDUNjX8WdEnCXWF4YObLba-dbXg',
         ]);
     }
 }

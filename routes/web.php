@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ImpersonateController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SaleController;
 use App\Livewire\Dashboard;
@@ -31,13 +32,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
     Route::resource('/clients', ClientController::class);
     Route::get('/sales', [SaleController::class, 'index']);
-
     Route::get('/sellers', Index::class)->name('sellers.index');
     Route::get('/sellers/create', Edit::class)->name('sellers.create');
     Route::get('/sellers/{seller}/edit', Edit::class)->name('sellers.edit');
+    Route::get('/impersonate/{user_id}/login', [ImpersonateController::class, 'impersonate'])->name('impersonate.login');
+    Route::get('/impersonate/leave', [ImpersonateController::class, 'leaveImpersonate'])->name('impersonate.leave');
 });
 
 require __DIR__.'/auth.php';
