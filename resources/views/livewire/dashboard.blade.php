@@ -39,7 +39,6 @@
                         </path>
                     </svg>
                 </x-primary-button>
-                <x-ai-select-options></x-ai-select-options>
             </div>
         </div>
     </div>

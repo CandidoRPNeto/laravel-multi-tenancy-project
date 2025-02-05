@@ -13,7 +13,6 @@ class SelectLLMAction {
         $model = session()->get('model');
         switch ($model['provider']) {
             case ProviderEnum::GEMINI:
-                //AIzaSyASplF9xWJvbf6bqkv_EA6gHG5US33nqpA
                 return new Gemini( $model);
                 break;
             case ProviderEnum::OPEN_AI:
