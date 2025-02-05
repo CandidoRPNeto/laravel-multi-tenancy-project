@@ -22,7 +22,9 @@ class Dashboard extends Component
         'question' => 'required|min:10'
     ];
 
-    public function generateReport() {
+    public function generateReport($provider, $model) {
+        dump($provider);
+        dd($model);
         $this->validate();
         $dashboardDetails = $this->buildPrompt();
         $response = SendMessageToAIAction::execute($dashboardDetails);
