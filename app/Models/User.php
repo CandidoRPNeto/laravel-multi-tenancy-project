@@ -26,7 +26,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role_id'
+        'role_id',
+        'ai_model_id'
     ];
 
     /**
@@ -64,5 +65,10 @@ class User extends Authenticatable
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function ai_model(): HasOne
+    {
+        return $this->hasOne(AIModel::class);
     }
 }

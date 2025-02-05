@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\ProviderEnum;
 use App\Enums\RoleEnum;
 use App\Http\Controllers\Controller;
+use App\Models\AIModel;
 use App\Models\Company;
 use App\Models\Seller;
 use App\Models\User;
@@ -14,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
@@ -39,6 +42,10 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'provider'=> ['required', Rule::enum(ProviderEnum::class)],
+            'token'=> ['required', 'string', 'max:255'],
+            'model' => ['nullable', 'string', 'max:255'],
+            'url'   => ['nullable', 'string', 'max:255'],
         ]);
         try {
             DB::beginTransaction();
@@ -50,6 +57,13 @@ class RegisteredUserController extends Controller
                 'password' => Hash::make($request->password),
             ]);
             Seller::create(['company_id' => $company->id, 'user_id' => $user->id]);
+            AIModel::create([
+                'provider'=> $request->provider,
+                'token'=> $request->token,
+                'model'=> $request->model ? $request->model : "",
+                'url'=> $request->url ? $request->url : "",
+                'user_id' => $user->id
+            ]);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();

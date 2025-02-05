@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Listeners\SetCompanyIdInSession;
+use App\Listeners\SetAIModelInSession;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -21,7 +22,8 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         Login::class => [
-            SetCompanyIdInSession::class
+            SetCompanyIdInSession::class,
+            SetAIModelInSession::class
         ]
     ];
 

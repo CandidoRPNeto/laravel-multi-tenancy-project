@@ -22,15 +22,12 @@ class Dashboard extends Component
         'question' => 'required|min:10'
     ];
 
-    public function generateReport($provider, $model) {
-        dump($provider);
-        dd($model);
+    public function generateReport() {
         $this->validate();
         $dashboardDetails = $this->buildPrompt();
         $response = SendMessageToAIAction::execute($dashboardDetails);
-        $this->buildConfig($response);
         $this->prepareDataSet();
-        return $this->config;
+        return $this->buildConfig($response);
     }
 
     private function buildPrompt(){
@@ -38,13 +35,14 @@ class Dashboard extends Component
         return "Considerando a lista de campos ($fields), gere uma configuração json do Vega-lite v5 (sem campo de dados e com descrição) que atenda o seguinte pedido {$this->question}. Resposta:";
     }
 
+    private function prepareDataSet(){
+        $this->dataset = ["values" => SalesCommission::inRandomOrder()->limit(100)->get()->toArray()];
+    }
+
     private function buildConfig($response){
         $response = str_replace("\n", "", $response);
         $response = preg_replace('/^```json|```$/', '', $response);
         $this->config = json_decode($response, true);
-    }
-
-    private function prepareDataSet(){
-        $this->dataset = ["values" => SalesCommission::inRandomOrder()->limit(100)->get()->toArray()];
+        return $this->config;
     }
 }

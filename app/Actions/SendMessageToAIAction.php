@@ -1,13 +1,12 @@
 <?php
 namespace App\Actions;
 
+use Illuminate\Container\Attributes\Auth;
 
 class SendMessageToAIAction {
 
     public static function execute($prompt){
-        //TODO: put in AUTH ai_id
-        $id =  '';
-        $chat = SelectLLMAction::execute($id);
+        $chat = SelectLLMAction::execute();
         return $chat->sendMessage($prompt);
     }
 
