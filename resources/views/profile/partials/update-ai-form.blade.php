@@ -21,8 +21,8 @@
 
             <select id="provider" :value="old('provider', $user->ai_model->provider)" name="provider"
                 class='w-full rounded-md border-gray-300 shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600'>
-                <option value="2">OpenAi</option>
                 <option value="1">Gemini</option>
+                <option value="2">OpenAi</option>
             </select>
             <x-input-error :messages="$errors->get('provider')" class="mt-2" />
         </div>
