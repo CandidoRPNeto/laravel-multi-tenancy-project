@@ -37,8 +37,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/sellers', Index::class)->name('sellers.index');
     Route::get('/sellers/create', Edit::class)->name('sellers.create');
     Route::get('/sellers/{seller}/edit', Edit::class)->name('sellers.edit');
-    Route::get('/impersonate/{user_id}/login', [ImpersonateController::class, 'impersonate'])->name('impersonate.login');
-    Route::get('/impersonate/leave', [ImpersonateController::class, 'leaveImpersonate'])->name('impersonate.leave');
+    Route::get('/impersonate/{user_id}/login', [ImpersonateController::class, 'impersonate'])->middleware(['can:impersonate'])->name('impersonate.login');
+    Route::get('/impersonate/leave', [ImpersonateController::class, 'leaveImpersonate'])->middleware(['can:leave-impersonate'])->name('impersonate.leave');
 });
 
 require __DIR__.'/auth.php';
