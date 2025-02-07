@@ -2,7 +2,6 @@
 
 use App\Providers\RouteServiceProvider;
 use Database\Seeders\RoleSeeder;
-
 use function Pest\Laravel\seed;
 
 test('registration screen can be rendered', function () {
