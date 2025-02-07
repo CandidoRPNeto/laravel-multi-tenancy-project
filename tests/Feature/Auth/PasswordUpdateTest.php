@@ -2,9 +2,19 @@
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use function Pest\Laravel\seed;
+use Database\Seeders\CompanySeeder;
+use Database\Seeders\RoleSeeder;
+use Tests\TestHelper;
+
+beforeEach(function(){
+    seed(RoleSeeder::class);
+    seed(CompanySeeder::class);
+});
+
 
 test('password can be updated', function () {
-    $user = User::factory()->create();
+    $user = TestHelper::makeUser();
 
     $response = $this
         ->actingAs($user)
@@ -23,7 +33,7 @@ test('password can be updated', function () {
 });
 
 test('correct password must be provided to update password', function () {
-    $user = User::factory()->create();
+    $user = TestHelper::makeUser();
 
     $response = $this
         ->actingAs($user)

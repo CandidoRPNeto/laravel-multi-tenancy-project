@@ -14,10 +14,10 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         $roles = [
-            ['name' => 'Admin', 'updated_at' => now(), 'created_at' => now()],
-            ['name' => 'Manager', 'updated_at' => now(), 'created_at' => now()],
-            ['name' => 'Seller', 'updated_at' => now(), 'created_at' => now()],
-            ['name' => 'Client', 'updated_at' => now(), 'created_at' => now()],
+            ['id' => 1,'name' => 'Admin', 'updated_at' => now(), 'created_at' => now()],
+            ['id' => 2,'name' => 'Manager', 'updated_at' => now(), 'created_at' => now()],
+            ['id' => 3,'name' => 'Seller', 'updated_at' => now(), 'created_at' => now()],
+            ['id' => 4,'name' => 'Client', 'updated_at' => now(), 'created_at' => now()],
         ];
         Role::insert($roles);
     }
