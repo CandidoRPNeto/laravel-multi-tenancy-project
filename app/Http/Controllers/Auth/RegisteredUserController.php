@@ -61,7 +61,6 @@ class RegisteredUserController extends Controller
                 'provider'=> $request->provider,
                 'token'=> $request->token,
                 'model'=> $request->model ? $request->model : "",
-                'url'=> $request->url ? $request->url : "",
                 'user_id' => $user->id
             ]);
             DB::commit();

@@ -16,7 +16,6 @@ return new class extends Migration
             $table->integer('provider');
             $table->string('token');
             $table->string('model')->nullable();
-            $table->string('url')->nullable();
             $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });

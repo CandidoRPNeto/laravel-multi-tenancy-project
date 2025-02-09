@@ -24,8 +24,7 @@ class SetAIModelInSession
         $model = [
             'provider'=> $ai_model->provider,
             'token'=> $ai_model->token,
-            'model'=> $ai_model->model,
-            'url'=> $ai_model->url
+            'model'=> $ai_model->model
         ];
         session()->put('model', $model);
     }

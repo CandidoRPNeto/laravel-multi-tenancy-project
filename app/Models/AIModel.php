@@ -15,7 +15,6 @@ class AIModel extends Model
         'provider',
         'token',
         'model',
-        'url',
         'user_id'
     ];
 
@@ -39,8 +38,7 @@ class AIModel extends Model
             if(session()->has('model')) session()->put('model', [
                 'provider'=> $ai_model->provider,
                 'token'=> $ai_model->token,
-                'model'=> $ai_model->model,
-                'url'=> $ai_model->url
+                'model'=> $ai_model->model
             ]);
         });
     }
