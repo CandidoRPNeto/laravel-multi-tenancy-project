@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
         AIModel::create([
             'user_id' => $user->id,
             'provider' => 1,
-            'token' => 'AIzaSyDoAKQZTDUNjX8WdEnCXWF4YObLba-dbXg',
+            'token' => 'random',
         ]);
     }
 }

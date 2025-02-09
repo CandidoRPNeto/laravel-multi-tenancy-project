@@ -21,14 +21,12 @@ class AIProviderController extends Controller
             'provider'=> ['required', Rule::enum(ProviderEnum::class)],
             'token'=> ['required', 'string', 'max:255'],
             'model' => ['nullable', 'string', 'max:255'],
-            'url'   => ['nullable', 'string', 'max:255'],
         ]);
 
         $request->user()->ai_model->update([
             'provider'=> $validated['provider'],
             'token'=> $validated['token'],
             'model'=> $validated['model'],
-            'url'=> $validated['url']
         ]);
 
         return back()->with('status', 'ai-updated');

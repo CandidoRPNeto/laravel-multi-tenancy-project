@@ -6,7 +6,9 @@ use App\Enums\ProviderEnum;
 use App\Enums\RoleEnum;
 use App\Http\Controllers\Controller;
 use App\Models\AIModel;
+use App\Models\Client;
 use App\Models\Company;
+use App\Models\Sale;
 use App\Models\Seller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -45,7 +47,6 @@ class RegisteredUserController extends Controller
             'provider'=> ['required', Rule::enum(ProviderEnum::class)],
             'token'=> ['required', 'string', 'max:255'],
             'model' => ['nullable', 'string', 'max:255'],
-            'url'   => ['nullable', 'string', 'max:255'],
         ]);
         try {
             DB::beginTransaction();
@@ -63,6 +64,9 @@ class RegisteredUserController extends Controller
                 'model'=> $request->model ? $request->model : "",
                 'user_id' => $user->id
             ]);
+
+            Seller::factory()->count(30)->create(['company_id' => $company->id]);
+            Client::factory()->count(30)->create(['company_id' => $company->id]);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();

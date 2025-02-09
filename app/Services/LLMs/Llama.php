@@ -3,7 +3,7 @@ namespace App\Services\LLMs;
 
 use Illuminate\Support\Facades\Http;
 
-class OpenAIChats implements LLMApiInterface{
+class Llama implements LLMApiInterface{
 
     private $model;
     private $key;
@@ -12,7 +12,7 @@ class OpenAIChats implements LLMApiInterface{
     public function __construct(array $artf_intelligence){
         $this->model = empty($artf_intelligence['model']) ? 'gpt-4o': $artf_intelligence['model'];
         $this->key = $artf_intelligence['token'];
-        $this->url = 'https://api.openai.com/v1/chat/completions';
+        $this->url = 'https://api.llama-api.com/chat/completions';
     }
 
     public  function sendMessage($prompt):string {

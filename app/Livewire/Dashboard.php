@@ -32,7 +32,7 @@ class Dashboard extends Component
 
     private function buildPrompt(){
         $fields = implode(',',SalesCommission::getColumns());
-        return "Considerando a lista de campos ($fields), gere uma configuração json do Vega-lite v5 (sem campo de dados e com descrição) que atenda o seguinte pedido {$this->question}. Resposta:";
+        return "Considering the list of fields ($fields), generate a Vega-Lite v5 JSON configuration (without a data field and with a description) that meets the following request: {$this->question}. Answer:";
     }
 
     private function prepareDataSet(){
