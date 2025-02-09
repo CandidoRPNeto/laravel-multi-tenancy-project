@@ -1,4 +1,8 @@
-# Installing the Project
+# About this
+
+This project originated from [Beer and Code](https://github.com/beerandcodeteam/olw-2) as part of the Laravel Método Malt training in the Multitenancy module. I have added new features in addition to the core functionalities.
+
+## Installing the Project
 
 The project uses Docker containers through the *Laravel Sail* package to simplify the development environment setup. Therefore, you must have Docker and Docker Compose installed on your machine.
 
@@ -63,3 +67,6 @@ Migrations allow you to version your database tables. To structure your database
 
 - Run `./vendor/bin/sail art migrate` to create the necessary tables in your database.
 - Run `./vendor/bin/sail art db:seed` to populate your database with sample data.
+
+Certificate [Laravel Project Series - Multi Tenancy com Laravel.pdf](https://github.com/user-attachments/files/18725837/Laravel.Project.Series.-.Multi.Tenancy.com.Laravel.pdf)
+
